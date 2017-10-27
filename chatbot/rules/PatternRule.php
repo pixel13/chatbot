@@ -29,8 +29,9 @@ class PatternRule extends Rule
 
 	private function match($message)
 	{
-		foreach ($this->configuration as $regex => $responses)
+		foreach ($this->configuration->pattern as $regex => $responses)
 		{
+			Log::log("Verifico se '$message' fa match con '$regex'");
 			if (preg_match("/$regex/i", $message))
 				return $responses;
 		}
