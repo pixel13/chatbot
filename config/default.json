@@ -4,9 +4,11 @@
   "options" : {
     "change_frequency" : 15,
     "recurring_frequency" : 20,
-    "wait_to_talk": { "min" : 10, "max": 30 },
     "end_frequency": { "own_messages": 5, "seconds": 900, "random": 0 },
-    "generic_apply": { "regexp" : "true", "frequency" : 90 }
+    "generic_apply": { "regexp" : "true", "frequency" : 90 },
+    "waitToTalk": { "min" : 10, "max": 30 },
+    "pollingInterval": 5000,
+    "writingTime": { "min": 1500, "max": 4500 }
   },
   "variables" : {
     "example_person" : { "mario" : "", "gino" : ""}
