@@ -37,7 +37,6 @@ class Bot extends Actor
         $this->name = $config->name;
 		$this->mood = $config->mood;
         $this->buildRulesChain($config);
-		$this->writeFrontendConfig($id, $config);
     }
 
     public function reply($message, $history)
@@ -86,19 +85,6 @@ class Bot extends Actor
 			$this->rules = $rules[0];
 			Log::log("Rule chain: " . $this->rules->showChain());
 		}
-	}
-
-	private function writeFrontendConfig($id, $config)
-	{
-		if (!property_exists($config, "options"))
-			return;
-
-		$configDir = $this->getBaseDir() . 'public/config';
-		if (!file_exists($configDir))
-			mkdir($configDir, 0755);
-
-		file_put_contents($configDir . "/" . strtolower($id) . ".json", json_encode($config->options));
-		Log::log("Options written in file: " . $configDir . "/" . strtolower($id) . ".json");
 	}
 
 	/**
