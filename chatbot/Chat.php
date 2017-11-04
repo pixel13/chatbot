@@ -135,4 +135,9 @@ class Chat
 	{
 		return $this->bot->getName();
 	}
+
+	public function getBotMood()
+	{
+		return $this->bot->getMood();
+	}
 }

@@ -16,11 +16,11 @@ function Chat(options)
         writingTime: { min: 1500, max: 4500 },
         userClass: 'user',
         botClass: 'bot',
-        writingMessageId: $('<div/>'),
-        endElement: $('<div/>').addClass('system').text("Chat is terminated")
+        writingMessage: $('<div/>'),
+        endElement: $('<div/>').addClass('system').text("Chat is terminated"),
+        onNewMessage: function() {}
     };
 
-    var config = {};
     var polling;
     var waitToTalk;
 
@@ -50,13 +50,6 @@ function Chat(options)
         options = $.extend(defaultOptions, options);
     };
 
-    var readConfiguration = function()
-    {
-        $.getJSON("config/" + options.id + ".json", function (data) {
-           config = data;
-        });
-    };
-
     var bindEvents = function()
     {
         options.messageInput.on('keypress', sendEventHandler);
@@ -78,7 +71,7 @@ function Chat(options)
                             return;
 
                         $.each(data, function(key, object) {
-                            echoMessage(options.botClass, object.message);
+                            echoMessageWithWriting(options.botClass, object.message);
                         });
                     },
                     410: function(jqXHR)
@@ -95,8 +88,12 @@ function Chat(options)
 
     var echoMessageWithWriting = function(sender, message)
     {
-        options.writingMessageId.show();
-        var timeout =
+        options.writingMessage.show();
+        var timeout = Math.floor((Math.random() * options.writingTime.max) + options.writingTime.min);
+        setTimeout(function () {
+            options.writingMessage.hide();
+            echoMessage(sender, message);
+        }, timeout);
     };
 
     var chatEnds = function()
@@ -121,23 +118,23 @@ function Chat(options)
         return timeString(dt.getHours()) + ":" + timeString(dt.getMinutes()) + ":" + timeString(dt.getSeconds());
     };
 
-    var echoMessage = function(sender, message, time)
+    var echoMessage = function(sender, message, messageTime)
     {
         if (message == '')
             return;
 
         clearTimeout(waitToTalk);
 
-        if (time == null)
-            time = getCurrentTime();
+        if (messageTime == null)
+            messageTime = getCurrentTime();
 
         var text = $('<div/>').addClass('text').text(message);
-        var time = $('<div/>').addClass('time').text(time);
+        var time = $('<div/>').addClass('time').text(messageTime);
         var box = $('<div/>').addClass('message ' + sender).append(text).append(time);
 
         options.history.append(box);
 
-        options.history.scrollTop(options.history.get(0).scrollHeight);
+        options.onNewMessage();
 
         talk();
     };
@@ -177,7 +174,6 @@ function Chat(options)
     };
 
     checkOptions();
-    readConfiguration();
     bindEvents();
     startPolling();
     talk();

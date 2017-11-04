@@ -14,6 +14,7 @@ $instance = \chatbot\Chat::getInstance($id);
 $instance->start();
 
 $botName = $instance->getBotName();
+$mood = $instance->getBotMood();
 $history = $instance->getHistory();
 
 ?>
@@ -29,9 +30,14 @@ $history = $instance->getHistory();
 			$(document).ready(function () {
 				var chat = new Chat({
 					id: '<?php echo $id ?>',
-					history: $('#history'),
+					history: $('#messages'),
 					messageInput: $('#new_message'),
-					messageSubmit: $('#submit')
+					messageSubmit: $('#submit'),
+					writingMessage: $('#writing'),
+					onNewMessage: function() {
+						var history = $('#history');
+						history.scrollTop(history.get(0).scrollHeight);
+					}
 				});
 
 				<?php
@@ -48,13 +54,13 @@ $history = $instance->getHistory();
 				<div id="avatar"><span></span></div>
 				<div id="status"><span></span></div>
 				<div id="name"><?php echo $botName ?></div>
-				<div id="mood">Disponibile</div>
+				<div id="mood"><?php echo $mood ?></div>
 				<div id="video"><span></span></div>
 				<div id="phone"><span></span></div>
 				<div id="contacts"><span></span></div>
 			</div>
 			<div id="world"><span></span></div>
-			<div id="history"><div id="writing"><span><?php echo $botName ?> sta scrivendo...</span></div></div>
+			<div id="history"><div id="messages"></div><div id="writing"><span><?php echo $botName ?> sta scrivendo...</span></div></div>
 			<div id="new">
 				<input type="text" name="new_message" id="new_message" autocomplete="off" />
 				<div id="send_contacts"><span></span></div>

@@ -12,6 +12,11 @@ class Bot extends Actor
 	 */
 	private $id;
 
+	/**
+	 * @var  string
+	 */
+	private $mood;
+
     /**
      * @var Rule
      */
@@ -30,6 +35,7 @@ class Bot extends Actor
 
 		$this->id = $id;
         $this->name = $config->name;
+		$this->mood = $config->mood;
         $this->buildRulesChain($config);
 		$this->writeFrontendConfig($id, $config);
     }
@@ -101,5 +107,13 @@ class Bot extends Actor
 	public function getId()
 	{
 		return $this->id;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getMood()
+	{
+		return $this->mood;
 	}
 }
