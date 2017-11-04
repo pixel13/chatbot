@@ -16,12 +16,23 @@ function Chat(options)
         writingTime: { min: 1500, max: 4500 },
         userClass: 'user',
         botClass: 'bot',
+        writingMessageId: $('<div/>'),
         endElement: $('<div/>').addClass('system').text("Chat is terminated")
     };
 
     var config = {};
     var polling;
     var waitToTalk;
+
+    this.initHistory = function(data)
+    {
+        $.each(data, function(key, messageObj)
+        {
+            var sender = (messageObj.sender.isBot ? options.botClass : options.userClass);
+            var time = messageObj.dateTime.date.substr(11, 8);
+            echoMessage(sender, messageObj.message, time)
+        });
+    };
 
     var checkOptions = function()
     {
@@ -82,6 +93,12 @@ function Chat(options)
         }, options.pollingInterval);
     };
 
+    var echoMessageWithWriting = function(sender, message)
+    {
+        options.writingMessageId.show();
+        var timeout =
+    };
+
     var chatEnds = function()
     {
         options.history.append(options.endElement);
@@ -104,18 +121,23 @@ function Chat(options)
         return timeString(dt.getHours()) + ":" + timeString(dt.getMinutes()) + ":" + timeString(dt.getSeconds());
     };
 
-    var echoMessage = function(sender, message)
+    var echoMessage = function(sender, message, time)
     {
         if (message == '')
             return;
 
         clearTimeout(waitToTalk);
 
-        var text = $('<div/>').text(message);
-        var time = $('<div/>').text(getCurrentTime());
+        if (time == null)
+            time = getCurrentTime();
+
+        var text = $('<div/>').addClass('text').text(message);
+        var time = $('<div/>').addClass('time').text(time);
         var box = $('<div/>').addClass('message ' + sender).append(text).append(time);
 
         options.history.append(box);
+
+        options.history.scrollTop(options.history.get(0).scrollHeight);
 
         talk();
     };

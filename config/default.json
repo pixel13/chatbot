@@ -17,7 +17,7 @@
   "start" : { "ciao" : "", "buongiorno" : "" },
   "end" : { "scusa ma ora devo andare, ci sentiamo più tardi" : "" },
   "recurring" : { "te l'ho già detto che in realtà sono un bot?" : "" },
-  "topics" : { "come stai?" : "", "bella giornata eh?" : "", "conosci per caso ${example_person}?" : "100" },
+  "topics" : { "come stai?" : "", "bella giornata eh?" : "", "conosci per caso ${example_person}?" : "" },
   "change" : { "scusa se salto di palo in frasca ma" : "", "senti, cambiando argomento" : "" },
   "answers" : { "non saprei" : "", "mah" : "40", "parliamo d'altro" : "40" },
   "generic" : { "capisco" : "", "davvero?" : "", "ah, ma pensa!" : "" },

@@ -130,4 +130,9 @@ class Chat
 
 		return $messages;
 	}
+
+	public function getBotName()
+	{
+		return $this->bot->getName();
+	}
 }
