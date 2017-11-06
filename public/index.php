@@ -6,6 +6,10 @@ spl_autoload_register(function ($class_name) {
 		include $path;
 });
 
+session_start();
+if (session_status() != PHP_SESSION_NONE)
+	session_destroy();
+
 $botList = \chatbot\Util::getBotList();
 
 ?>
@@ -14,10 +18,27 @@ $botList = \chatbot\Util::getBotList();
 	<head>
 		<title>Chatbot</title>
 		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+			function startChat()
+			{
+				var id = $('#id').val();
+				if (id == '')
+					return;
+
+				$('#choice').submit();
+			}
+
+			$(document).ready(function() {
+				$('#id').prop("selectedIndex", 0);
+			});
+
+		</script>
 	</head>
-	<body>
-		<form method="GET" action="chat.php">
-			<select name="id" onchange="this.form.submit()">
+	<body class="choice">
+		<form id="choice" method="GET" action="chat.php">
+			<label for="id">Con chi vuoi chattare?</label>
+			<select name="id" id="id" onchange="startChat()">
 				<option value="">--</option>
 				<?php
 					foreach ($botList as $id => $name)

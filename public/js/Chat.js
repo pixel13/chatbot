@@ -34,6 +34,13 @@ function Chat(options)
         });
     };
 
+    var getAvatarSelectors = function()
+    {
+        $.get(options.css, function(data) {
+
+        });
+    };
+
     var checkOptions = function()
     {
         var mandatories = [ "id", "history", "messageInput" ];

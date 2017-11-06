@@ -17,6 +17,11 @@ class Bot extends Actor
 	 */
 	private $mood;
 
+	/**
+	 * @var string
+	 */
+	private $avatar;
+
     /**
      * @var Rule
      */
@@ -35,7 +40,10 @@ class Bot extends Actor
 
 		$this->id = $id;
         $this->name = $config->name;
-		$this->mood = $config->mood;
+		if (property_exists($config, "mood"))
+			$this->mood = $config->mood;
+		if (property_exists($config, "avatar"))
+			$this->avatar = $config->avatar;
         $this->buildRulesChain($config);
     }
 
@@ -101,5 +109,13 @@ class Bot extends Actor
 	public function getMood()
 	{
 		return $this->mood;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getAvatar()
+	{
+		return $this->avatar;
 	}
 }

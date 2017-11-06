@@ -91,6 +91,7 @@ body {
     border: 0.1em solid #00AFF0;
     width: 1.9em;
     height: 1.9em;
+    cursor: pointer;
 }
 
 #send_contacts, #emoticons {
@@ -274,7 +275,7 @@ body {
     background-image: url("../img/avatar.svg");
     background-repeat: no-repeat;
     background-position: center center;
-    background-size: 2em;
+    background-size: 3em;
 }
 
 .bot .text:before {
@@ -303,4 +304,22 @@ body {
     border-top: 1em solid transparent;
     border-bottom: 1em solid transparent;
     border-left: 1em solid #C7EDFC;
+}
+
+body.choice {
+    background-color: #00AFF0;
+    padding-top: 10em;
+}
+
+form {
+    text-align: center;
+
+    color: white;
+    font-size: 200%;
+    height: 100%;
+    vertical-align: middle;
+}
+
+form label {
+    display: block;
 }

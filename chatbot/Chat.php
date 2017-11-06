@@ -140,4 +140,9 @@ class Chat
 	{
 		return $this->bot->getMood();
 	}
+
+	public function getBotAvatar()
+	{
+		return $this->bot->getAvatar();
+	}
 }

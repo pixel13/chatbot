@@ -15,16 +15,22 @@ $instance->start();
 
 $botName = $instance->getBotName();
 $mood = $instance->getBotMood();
+$avatar = $instance->getBotAvatar();
 $history = $instance->getHistory();
+
+$css = 'main.css';
+if ($avatar != '')
+	$css = 'custom_css.php?avatar=' . urlencode($avatar);
+
 
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Chatbot</title>
+		<title><?php echo $botName ?></title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		<script src="js/Chat.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<link rel="stylesheet" type="text/css" href="css/<?php echo $css ?>">
 		<script type="text/javascript">
 
 			$(document).ready(function () {
@@ -34,6 +40,7 @@ $history = $instance->getHistory();
 					messageInput: $('#new_message'),
 					messageSubmit: $('#submit'),
 					writingMessage: $('#writing'),
+					avatarSelectors: ['#avatar', '.bot:before'],
 					onNewMessage: function() {
 						var history = $('#history');
 						history.scrollTop(history.get(0).scrollHeight);
@@ -57,7 +64,7 @@ $history = $instance->getHistory();
 				<div id="mood"><?php echo $mood ?></div>
 				<div id="video"><span></span></div>
 				<div id="phone"><span></span></div>
-				<div id="contacts"><span></span></div>
+				<div id="contacts" onclick="history.back()"><span></span></div>
 			</div>
 			<div id="world"><span></span></div>
 			<div id="history"><div id="messages"></div><div id="writing"><span><?php echo $botName ?> sta scrivendo...</span></div></div>
