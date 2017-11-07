@@ -1,3 +1,5 @@
 logs/
 public/config/
 .idea/
+config/*.json
+!config/default.json
