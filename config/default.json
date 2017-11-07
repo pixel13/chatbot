@@ -1,7 +1,7 @@
 {
   "id" : "default",
   "name" : "Chatbot",
-  "avatar": "default.jpg",
+  "avatar": "avatar.svg",
   "mood": "Ho visto cose che voi umani non potete neanche immaginare...",
   "options" : {
     "change_frequency" : 15,

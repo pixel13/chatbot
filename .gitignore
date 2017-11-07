@@ -3,3 +3,5 @@ public/config/
 .idea/
 config/*.json
 !config/default.json
+public/img/*
+!public/img/avatar.svg
