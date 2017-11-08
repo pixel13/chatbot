@@ -4,15 +4,19 @@ namespace chatbot\actors;
 
 abstract class Actor implements \JsonSerializable
 {
+	const ROLE_BOT = 'bot';
+	const ROLE_SYSTEM = 'system';
+	const ROLE_USER = 'user';
+
 	/**
 	 * @var string
 	 */
 	protected $name;
 
 	/**
-	 * @var boolean
+	 * @var string
 	 */
-	protected $isBot = false;
+	protected $role;
 
 	public function getName()
 	{
@@ -25,10 +29,10 @@ abstract class Actor implements \JsonSerializable
 	}
 
 	/**
-	 * @return boolean
+	 * @return string
 	 */
-	public function isBot()
+	public function getRole()
 	{
-		return $this->isBot;
+		return $this->role;
 	}
 }

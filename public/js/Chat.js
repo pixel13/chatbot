@@ -18,6 +18,8 @@ function Chat(options)
         botClass: 'bot',
         writingMessage: $('<div/>'),
         endElement: $('<div/>').addClass('system').text("Chat is terminated"),
+        systemMessagesSender: 'CHATBOT_SYSTEM',
+        systemMessagesClass: 'system',
         onNewMessage: function() {}
     };
 
@@ -28,11 +30,26 @@ function Chat(options)
     {
         $.each(data, function(key, messageObj)
         {
-            var sender = (messageObj.sender.isBot ? options.botClass : options.userClass);
+            var sender = getSenderFromMessage(messageObj);
             var time = messageObj.dateTime.date.substr(11, 8);
             echoMessage(sender, messageObj.message, time)
         });
     };
+
+    var getSenderFromMessage = function(message)
+    {
+        switch (message.sender.role)
+        {
+            case 'bot':
+                return options.botClass;
+
+            case 'system':
+                return options.systemMessagesClass;
+
+            case 'user':
+                return options.userClass;
+        }
+    }
 
     var getAvatarSelectors = function()
     {
@@ -77,8 +94,9 @@ function Chat(options)
                         if (typeof data != 'object')
                             return;
 
+                        var totalTimeout = 0;
                         $.each(data, function(key, object) {
-                            echoMessageWithWriting(options.botClass, object.message);
+                            totalTimeout += echoMessageWithWriting(getSenderFromMessage(object), object.message, totalTimeout);
                         });
                     },
                     410: function(jqXHR)
@@ -93,14 +111,17 @@ function Chat(options)
         }, options.pollingInterval);
     };
 
-    var echoMessageWithWriting = function(sender, message)
+    var echoMessageWithWriting = function(sender, message, timeoutOffset)
     {
         options.writingMessage.show();
-        var timeout = Math.floor((Math.random() * options.writingTime.max) + options.writingTime.min);
+        options.onNewMessage();
+        var timeout = Math.floor((Math.random() * options.writingTime.max) + options.writingTime.min) + timeoutOffset;
         setTimeout(function () {
             options.writingMessage.hide();
             echoMessage(sender, message);
         }, timeout);
+
+        return timeout;
     };
 
     var chatEnds = function()

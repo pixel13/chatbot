@@ -190,6 +190,8 @@ body {
 
 #writing span:before {
     content: "";
+    font-size: 2em;
+    vertical-align: middle;
     font-family: 'SkypeUISymbol';
 }
 
@@ -249,6 +251,7 @@ body {
     margin-left: 10em;
     padding: 1em 1.5em;
     margin-right: 6em;
+    white-space: pre;
 }
 
 .message .time {
@@ -258,10 +261,20 @@ body {
     color: #666;
 }
 
+.system .time {
+    display: none;
+}
+
 .bot .text {
     background-color: #F0F4F8;
     margin-left: 5em;
     margin-right: 10em;
+}
+
+.system .text {
+    background-color: #BBB;
+    margin-left: 12em;
+    margin-right: 12em;
 }
 
 .bot:before {
@@ -297,7 +310,7 @@ body {
     float: right;
     content: " ";
     position: relative;
-    top: -0.5em;
+    top: -1.5em;
     left: 2em;
     width: 0;
     height: 0;

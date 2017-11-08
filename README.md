@@ -87,6 +87,8 @@ del tipo:
     ...
 },`
 
+Va ricordato che, trattandosi di stringhe che devono essere poi interpretate in PHP, nei pattern il backslash va sempre
+ripetuto due volte (e.g. per applicare il matcher dei caratteri di una parola va usato "\\w").
 Trattandosi di una regola che risponde a un messaggio in maniera precisa, è bene che sia la prima delle regole disponibili, nell'ordine.
 
 

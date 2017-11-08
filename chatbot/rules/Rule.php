@@ -2,7 +2,7 @@
 
 namespace chatbot\rules;
 
-use chatbot\Log;
+use chatbot\log\Log;
 
 abstract class Rule
 {

@@ -2,7 +2,7 @@
 
 namespace chatbot\actors;
 
-use chatbot\Log;
+use chatbot\log\Log;
 use chatbot\rules\Rule;
 
 class Bot extends Actor
@@ -27,7 +27,7 @@ class Bot extends Actor
      */
     private $rules;
 
-	protected $isBot = true;
+	protected $role = self::ROLE_BOT;
 
     /**
      * @param string $id

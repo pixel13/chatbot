@@ -41,6 +41,7 @@ if ($avatar != '')
 					messageSubmit: $('#submit'),
 					writingMessage: $('#writing'),
 					avatarSelectors: ['#avatar', '.bot:before'],
+					waitToTalk: {min: 900, max: 900 },
 					onNewMessage: function() {
 						var history = $('#history');
 						history.scrollTop(history.get(0).scrollHeight);

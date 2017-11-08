@@ -3,7 +3,9 @@
 namespace chatbot;
 
 use chatbot\actors\Bot;
+use chatbot\actors\System;
 use chatbot\actors\User;
+use chatbot\log\Log;
 
 class Chat
 {
@@ -129,6 +131,12 @@ class Chat
 			$this->end();
 
 		return $messages;
+	}
+
+	public function addSystemMessage($message)
+	{
+		$sysMessage = new Message(System::getInstance(), $message);
+		$this->lastMessages[] = $sysMessage;
 	}
 
 	public function getBotName()

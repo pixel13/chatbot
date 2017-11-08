@@ -2,8 +2,9 @@
 
 namespace chatbot\rules;
 
+use chatbot\actors\Actor;
 use chatbot\Chat;
-use chatbot\Log;
+use chatbot\log\Log;
 use chatbot\Message;
 use \DateInterval;
 use \DateTime;
@@ -26,7 +27,7 @@ class EndRule extends  Rule
 			for ($i = count($history) - 1; $i >= count($history) - $maxMessages; $i--)
 			{
 				$message = $history[$i];
-				if (($message instanceof Message) && ($message->getSender()->isBot()))
+				if (($message instanceof Message) && ($message->getSender()->getRole() == Actor::ROLE_BOT))
 					$counter++;
 			}
 
